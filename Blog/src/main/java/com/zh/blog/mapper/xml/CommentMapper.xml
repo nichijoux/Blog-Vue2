@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zh.blog.mapper.CommentMapper">
+    <!-- 获取发布文章的评论数量 -->
+    <select id="countPublishedArticleComment" resultType="java.lang.Long">
+        SELECT COUNT(c.id)
+        FROM `comment` c
+                 LEFT JOIN `article` a ON a.id = c.article_id
+        WHERE a.`status` = TRUE
+    </select>
+</mapper>

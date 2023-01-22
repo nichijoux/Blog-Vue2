@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>用户注册</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<div style="width:700px;background-color:#fff;margin:0 auto;border: 1px solid #ccc;">
+    <div style="height:64px;margin:0;padding:0;width:100%;">
+        <a href="http://localhost:8080/index"
+           style="display:block;padding: 12px 30px;text-decoration: none;font-size: 24px;letter-spacing: 3px;border-bottom: 1px solid #ccc;"
+           rel="noopener" target="_blank">
+            nichijoux's blog
+        </a>
+    </div>
+    <div style="padding: 30px;margin:0;">
+        <div style="font-size:14px;color:#333; display: inline;">
+            您的邮箱为：
+            <p style="color: rgb(131, 201, 255); display: inline;" th:text="${recipient}"></p>，验证码为：
+        </div>
+        <p style="font-size:34px;color: green;" th:text="${validateCode}"></p>
+        <p style="font-size:14px;color:#333;">验证码的有效期为5分钟，请在有效期内输入！</p>
+        <p style="font-size:14px;color: #999;">— nichijoux's blog</p>
+        <p style="font-size:12px;color:#999;border-top:1px dotted #E3E3E3;margin-top:30px;padding-top:30px;">
+            本邮件为系统邮件不能回复，请勿回复。
+        </p>
+    </div>
+</div>
+</body>
+</html>

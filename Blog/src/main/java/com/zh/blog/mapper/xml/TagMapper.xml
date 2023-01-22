@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zh.blog.mapper.TagMapper">
+    <!-- 根据articleId获取tag列表(tag仅包含tagId,tagName) -->
+    <select id="selectTagListByArticleId" resultType="com.zh.blog.domain.entity.Tag">
+        SELECT DISTINCT t.id,
+                        t.`name`
+        FROM article_tag at
+                 LEFT JOIN tag t on t.id = at.tag_id
+        WHERE at.article_id = #{articleId}
+          AND t.is_deleted = false
+    </select>
+</mapper>

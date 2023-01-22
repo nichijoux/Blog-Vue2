@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zh.blog.mapper.MenuMapper">
+    <!-- 根据用户id获取权限值 -->
+    <select id="selectPermissionValueByUserId" resultType="java.lang.String">
+        SELECT DISTINCT m.permission_value
+        FROM user_role ur
+                 LEFT JOIN role_menu rm on ur.role_id = rm.role_id
+                 LEFT JOIN menu m on rm.menu_id = m.id
+        WHERE ur.user_id = #{userId}
+          AND m.type IN (1, 2)
+          AND m.is_enable = true
+          AND m.is_deleted = false
+    </select>
+    <!-- 获取所有的路由菜单(仅包含目录和菜单) -->
+    <select id="selectAllRouterMenu" resultType="com.zh.blog.domain.entity.Menu">
+        SELECT DISTINCT m.id,
+                        m.pid,
+                        m.`name`,
+                        IFNULL(m.permission_value, ''),
+                        m.`type`,
+                        m.path,
+                        m.component,
+                        m.redirect,
+                        m.icon,
+                        m.hidden,
+                        m.sort
+        FROM menu m
+        WHERE m.type IN (0, 1)
+          AND m.is_enable = true
+          AND m.is_deleted = false
+        ORDER BY m.sort
+    </select>
+    <!-- 根据用户id获取其路由菜单(仅包含目录和菜单) -->
+    <select id="selectRouterMenuByUserId" resultType="com.zh.blog.domain.entity.Menu">
+        SELECT DISTINCT m.id,
+                        m.pid,
+                        m.`name`,
+                        IFNULL(m.permission_value, ''),
+                        m.`type`,
+                        m.path,
+                        m.component,
+                        m.redirect,
+                        m.icon,
+                        m.hidden,
+                        m.sort
+        FROM user_role ur
+                 LEFT JOIN role_menu rm on ur.role_id = rm.role_id
+                 LEFT JOIN menu m on rm.menu_id = m.id
+        WHERE ur.user_id = #{userId}
+          AND m.type IN (0, 1)
+          AND m.is_enable = true
+          AND m.is_deleted = false
+        ORDER BY m.sort
+    </select>
+</mapper>
